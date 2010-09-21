@@ -3,7 +3,7 @@ drop procedure fx.ScriptObject
 go
 /*
 <summary>
-	Generating DDL definistion for given object 
+	Generating DDL definition for given object 
 <summary>
 
 <remarks>
@@ -24,16 +24,14 @@ go
 	The code can be used for free as long as this copyright notice is not removed.
 <author>
 
-<date>12\09\2009</date>
-		
-<example>
-	exec fx.ScriptObject 'fx', 'ScriptObject'
-</example>
-
 <param name="Schema">Scripted object's schema</param>
 <param name="Object">Scripted object's name</param>
 <param name="PrintResult">Flag to determine should resulted script be printed to output</param>
 <param name="Result">DDL statement</param>
+
+<example>
+	exec fx.ScriptObject 'fx', 'ScriptObject'
+</example>
 */
 
 create procedure fx.ScriptObject(
@@ -120,3 +118,4 @@ begin
 	return 0
 	
 end
+go

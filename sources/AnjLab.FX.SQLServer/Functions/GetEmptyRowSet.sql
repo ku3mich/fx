@@ -13,7 +13,9 @@ go
 	The code can be used for free as long as this copyright notice is not removed.
 <author>
 
-<date>7\11\2007</date>
+<param name="Records">Number of records to be generated</param>
+
+<returns>Table with one column RecordID which containts number of record</returns>
 
 <example>
 	Example 1. Multiply scalar value 
@@ -34,11 +36,11 @@ go
 */
 
 create function fx.GetEmptyRowSet(@Records int) 
-returns @Empty table(RecordID int) as
+returns @Table table(RecordID int) as
 begin
 
 while @Records > 0 begin
-	insert into @Empty values(@Records)
+	insert into @Table values(@Records)
 	set @Records = @Records - 1
 end
 

@@ -4,7 +4,7 @@ go
 
 /*
 <summary>
-	Returns 1 if year of input date is leap or 0 in other case
+	Returns true if year of given date is leap and false in other case
 </summary>
 
 <author>
@@ -13,19 +13,23 @@ go
 	The code can be used for free as long as this copyright notice is not removed.
 <author>
 
+<param name="Date">Date to be checked</param>
+
+<returns>true / false</returns>
+
 <example>
 	print fx.CheckLeapYear(getDate())
 </example>
 */
 
-create function fx.CheckLeapYear(@dt datetime)
+create function fx.CheckLeapYear(@Date datetime)
 returns bit as
 begin
 
-  declare @y int
-  select @y = year(@dt)
-  return case when (@y % 4 = 0) and ((@y % 100 <> 0) or (@y % 400 = 0)) then 1 else 0 end
+  return case 
+	when (year(@Date) % 4 = 0) and ((year(@Date) % 100 <> 0) or (year(@Date) % 400 = 0)) then 1 
+	else 0 end
 
 end
-GO
+go
 

@@ -9,31 +9,44 @@
 	Copyright © AnjLab 2008, http://anjlab.com. All rights reserved.
 	The code can be used for free as long as this copyright notice is not removed.
 <author>
-
-<date>10/2/2008</date>
 */
 
 set nocount on 
 
 declare ForeignKeys cursor for
-	select fk.name as fkname, so.name as tabname, c.name as colname
+	select s.name as schemaname, t.name as tabname, c.name as colname
 	from sys.foreign_keys fk 
-	inner join sys.objects so on so.object_id = fk.parent_object_id
+	inner join sys.tables t on t.object_id = fk.parent_object_id
+	inner join sys.schemas s on s.schema_id = t.schema_id
 	inner join sys.foreign_key_columns fkc on fkc.constraint_object_id = fk.object_id
 	inner join sys.columns c on c.object_id = fkc.parent_object_id and c.column_id = fkc.parent_column_id
 
-declare @fkname nvarchar(255), @tabname nvarchar(255), @colname nvarchar(255), @sql nvarchar(max)
+
+declare 
+	@tabname nvarchar(255), 
+	@colname nvarchar(255), 
+	@schemaname nvarchar(255), 
+	@sql nvarchar(max)
 
 print 'Indexing columns used for foreign keys'
 
 open ForeignKeys
-fetch next from ForeignKeys into @fkname, @tabname, @colname
+fetch next from ForeignKeys into @schemaname, @tabname, @colname
 while @@fetch_status = 0
 begin
-	if not exists (select * from sys.indexes where name = N'ix' + @tabname + @colname)
+	-- check existance of index for given table which include only one (given) column
+	if not exists (
+		select i.object_id from sys.indexes i
+		inner join sys.index_columns ic on ic.object_id = i.object_id and ic.index_id = i.index_id
+		inner join sys.tables t on t.object_id = i.object_id
+		inner join sys.columns c on c.object_id = i.object_id and c.column_id = ic.column_id
+		where t.name = @tabname and c.name = @colname
+		group by i.object_id, i.index_id
+		having count(*) = 1)
 	begin
 		begin try
-			set @sql = N'create nonclustered index ix'+ @tabname + @colname + N' on ' + @tabname + N'(' + @colname + N' asc)'
+			set @sql = N'create nonclustered index ix'+ @tabname + @colname + N' on [' + @schemaname + N'].[' + @tabname + N']([' + @colname + N'] asc)'
+			--print @sql
 			exec sp_executesql @sql
 			print N' * Index ' + N'ix' + @tabname + @colname + N' is created.'
 		end try
@@ -41,7 +54,7 @@ begin
 			print N' * Error while creating index: ' + N'ix' + @tabname + @colname
 		end catch
 	end
-	fetch next from ForeignKeys into @fkname, @tabname, @colname
+	fetch next from ForeignKeys into @schemaname, @tabname, @colname
 end
 
 close ForeignKeys

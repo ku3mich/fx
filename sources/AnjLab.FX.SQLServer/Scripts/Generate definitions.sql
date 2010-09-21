@@ -1,23 +1,33 @@
+/* 
+<summary>
+	Generates DDL definitions for all objects of given type in given scheme
+</summary>
+
+<author>
+	Alex Zakharov
+	Copyright © AnjLab 2010, http://anjlab.com. All rights reserved.
+	The code can be used for free as long as this copyright notice is not removed.
+<author>
+
+<param name="Schema">Schema name</param>
+<param name="ObjectType">system type: V, TR, P, FN, TF</param>
+*/
+
+
 set nocount on
 
-declare @Schemas table([Name] sysname, [Order] int)
+declare @Schema sysname, @ObjectType sysname, @Object sysname
 
-insert into @Schemas values('Tools', 1)
-insert into @Schemas values('Security', 2)
-insert into @Schemas values('Common', 3)
-insert into @Schemas values('Inventory', 4)
-insert into @Schemas values('Dispatch', 5)
-insert into @Schemas values('International', 6)
-
-declare @Schema sysname, @Object sysname
+set @Schema = 'fx'
+set @ObjectType = 'FN'
+ 
 
 declare Objects cursor for 
 	select s.name, o.name 
 	from sys.objects o 
 	inner join sys.schemas s on s.schema_id = o.schema_id
-	inner join @Schemas ss on ss.[Name] = s.name
-	where o.type in ('TR')
-	order by ss.[Order] , o.name
+	where o.type in (@ObjectType) and s.name = @Schema
+	order by o.name
 	
 	
 open Objects

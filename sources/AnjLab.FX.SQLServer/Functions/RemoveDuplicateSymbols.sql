@@ -1,6 +1,6 @@
 if exists (select * from sysobjects where id = object_id(N'fx.RemoveDuplicateSymbols') and xtype in (N'FN', N'if', N'TF'))
 	drop function fx.RemoveDuplicateSymbols
-GO
+go
 
 /*
 <summary>
@@ -15,31 +15,27 @@ GO
 	The main idea was discussed on http://sql.ru
 </author>
 
-<param name="StringValue">Initial string</param>
-<param name="SymbolValue">Symbol, whose sequences will be tuncated</param>
+<param name="String">Initial string</param>
+<param name="Symbol">Symbol, whose sequences will be tuncated</param>
 
 <returns>Truncated string</returns>
 
 <example>
-print fx.RemoveDuplicateSymbols(N'       b    c d     e     ', N' ')
-result ' b c d e '
+	print fx.RemoveDuplicateSymbols(N'       b    c d     e     ', N' ')
+	> ' b c d e '
 </example>
 */
 
-create function fx.RemoveDuplicateSymbols
-(
-	@StringValue nvarchar(max),
-	@SymbolValue nchar(1) = N' '
-)
-returns nvarchar(max) AS
+create function fx.RemoveDuplicateSymbols(@String nvarchar(max), @Symbol nchar(1))
+returns nvarchar(max) as
 begin
 
 	return 
 		replace(
 			replace(
-				replace(@StringValue, @SymbolValue + @SymbolValue, @SymbolValue + nchar(1))
-				, nchar(1) + @SymbolValue, N'')
-			, nchar(1), N'')
+				replace(@String, @Symbol + @Symbol, @Symbol + nchar(1))
+				, nchar(1) + @Symbol, space(0))
+			, nchar(1), space(0))
 
 end
-GO
+go

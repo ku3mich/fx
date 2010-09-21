@@ -14,36 +14,40 @@ go
 	The code can be used for free as long as this copyright notice is not removed.
 <author>
 
-<date>09\27\2007</date>
+<param name="Start">Period start date</param>
+<param name="End">Period finish date</param>
+<param name="PresentValue">Price at start date</param>
+<param name="FutureValue">Price at end date</param>
+
+<returns>Yield as percentage</returns>
 
 <example>
-	NOTE: table valued function fx.GetEmptyRowSet and scalar function fx.CheckLeapYear
-	must be created before using.
-	print fx.CalculateYield(getDate(), getDate()+1000, 100.00, 200.00)
+	This example shows yield for paper which price will grow up twice in next ~3 years (1000 days)
+	print fx.CalculateYield(getDate(), getDate() + 1000, 100.00, 200.00)
 	> 36.5191
 </example>
 */
 
-create function fx.CalculateYield(@StartDate datetime, @EndDate datetime, @PresentValue money, @FutureValue money) 
-returns real as
+create function fx.CalculateYield(@Start datetime, @End datetime, @PresentValue money, @FutureValue money) 
+returns float as
 begin
 
-declare @Yield real
+declare @Yield float
 
 select @Yield = 
 	100 * ((@FutureValue - @PresentValue ) / @PresentValue ) * 
-	1/(cast(sum(Days * cast(LeapYear - 1 as bit)) as real)/365 + cast(sum(Days * LeapYear) as real)/366)
+	1/(cast(sum([Days] * cast(LeapYear - 1 as bit)) as real)/365 + cast(sum([Days] * LeapYear) as real)/366)
 from (
 	select 
-		datediff(day, YearStartDate, YearEndDate) as Days,
+		datediff(dd, YearStartDate, YearEndDate) as [Days],
 		fx.CheckLeapYear(YearStartDate) as LeapYear
 	from (
 		select 
-			YearStartDate = CASE Years WHEN year(@StartDate) THEN @StartDate ELSE '01/01/' + str(Years) END,
-			YearEndDate   = CASE Years WHEN year(@EndDate)   THEN @EndDate	 ELSE '01/01/' + str(Years + 1) END
+			YearStartDate = case Years when year(@Start) then @Start else '01/01/' + str(Years) end,
+			YearEndDate   = case Years when year(@End)   then @End	 else '01/01/' + str(Years + 1) end
 		from (
-			select Year(@StartDate) + RecordId - 1 as Years
-			from fx.GetEmptyRowSet(datediff(year, @StartDate, @EndDate) + 1)
+			select year(@Start) + RecordId - 1 as Years
+			from fx.GetEmptyRowSet(datediff(year, @Start, @End) + 1)
 		) as a
 	) as b
 ) as c

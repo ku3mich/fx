@@ -26,8 +26,9 @@ create procedure fx.CleanServerCashe as
 begin
 
 	checkpoint
-    dbcc dropcleanbuffers with no_infomsgs
+	dbcc dropcleanbuffers with no_infomsgs
 	dbcc FREESYSTEMCACHE ('ALL') with no_infomsgs
+	DBCC FREEPROCCACHE  with no_infomsgs
 
 
 end

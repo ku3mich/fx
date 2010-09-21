@@ -10,7 +10,6 @@
 	The code can be used for free as long as this copyright notice is not removed.
 <author>
 
-<date>17/1/2009</date>
 
 <param name="Action">What should be done with generated code: 0 print in output, 1 execute</param>
 */
@@ -19,7 +18,7 @@ set nocount on
 
 -- input parameters
 declare	@Action bit
-set @Action = 0 -- Execute
+set @Action = 0 
 	
 declare 
 	@SQL nvarchar(max),
@@ -134,10 +133,10 @@ begin
 		if @Action = 1 exec sp_executesql @SQL
 		else print @SQL
 
-		print ' * Generated procedure '@SchemaName + N'.proc' + @TableName + N'Delete'
+		print ' * Generated procedure ' + @SchemaName + N'.proc' + @TableName + N'Delete'
 	end try
 	begin catch
-		print ' * Error occured while creating procedure '@SchemaName + N'.proc' + @TableName + N'Delete'
+		print ' * Error occured while creating procedure ' + @SchemaName + N'.proc' + @TableName + N'Delete'
 	end catch
 
 	fetch next from Tables into @TableID, @SchemaName, @TableName

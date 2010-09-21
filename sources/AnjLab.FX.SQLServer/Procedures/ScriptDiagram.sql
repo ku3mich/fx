@@ -1,6 +1,6 @@
 if exists (select * from sysobjects where id = object_id(N'fx.ScriptDiagram') and xtype in (N'P'))
 drop procedure fx.ScriptDiagram
-GO
+go
 /*
 <summary>
 	Script SQL Server diagrams 
@@ -26,16 +26,15 @@ GO
 	inspired by usp_ScriptDatabaseDiagrams for Sql Server 2000 by Clay Beatty
 </author>
 
-<example>
-	NOTE: Scalar-valued Function fx.ConvertVarbinaryTovarcharHex must exist before this script is run
-	exec fx.ScriptDiagram 'dbo', 'General'
-</example>
-
 <param name="Schema">Object's schema name</param>
 <param Name="Object">Name of the diagram</param>
 <param name="PrintResult">Flag to determine should resulted script be printed to output</param>
 <param name="Result">SQL statement</param>
 
+<example>
+	NOTE: Scalar-valued Function fx.ConvertVarbinaryTovarcharHex must exist before this script is run
+	exec fx.ScriptDiagram 'dbo', 'General'
+</example>
 */
 
 create procedure fx.ScriptDiagram
@@ -162,3 +161,4 @@ begin
 
 	return 0
 end
+go

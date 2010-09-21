@@ -1,6 +1,7 @@
 if exists (select * from sysobjects where id = object_id(N'fx.SearchObjectByText') and xtype in (N'P'))
 drop procedure fx.SearchObjectByText
-GO
+go
+
 /*
 <summary>
 	Searches SQL Server programmability objects (stored procedures, functions, triggers, 
@@ -17,11 +18,11 @@ GO
 	The code can be used for free as long as this copyright notice is not removed.
 </author>
 
+<param name="Text">String to search</param>
+
 <example>
 	exec fx.SearchObjectByText '%anjlab%'
 </example>
-
-<param name="Text">String to search</param>
 */
 
 create procedure fx.SearchObjectByText(@Text nvarchar(max)) as

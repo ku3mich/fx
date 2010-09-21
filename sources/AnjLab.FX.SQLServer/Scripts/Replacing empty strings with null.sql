@@ -10,8 +10,6 @@
 	The code can be used for free as long as this copyright notice is not removed.
 <author>
 
-<date>27/1/2009</date>
-
 */
 
 set nocount on

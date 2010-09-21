@@ -36,8 +36,23 @@ go
 	Copyright © 2002 Narayana Vyas Kondreddi. All rights reserved.
 </author>
 
-<date>1/17/2001</date>
-		
+<param name="Schema">Scripted object's schema</param>
+<param name="Object">The table/view for which the INSERT statements will be generated using the existing data</param>
+<param name="TargetObject">Use this parameter to specify a different table name into which the data will be inserted</param>
+<param name="ScriptColumnsList">Use this parameter to include/ommit column list in the generated INSERT statement</param>
+<param name="Conditions">Use this parameter to filter the rows based on a filter condition (using where)</param>
+<param name="IncludeTimestamp">Specify 1 for this parameter, if you want to include the TIMESTAMP/ROWVERSION column's data in the INSERT statement</param>
+<param name="DebugMode">If @DebugMode is set to 1, the SQL statements constructed by this procedure will be printed for later examination</param>
+<param name="OmitImages">Use this parameter to generate INSERT statements by omitting the 'image' columns</param>
+<param name="OmitIdentity">Use this parameter to ommit the identity columns</param>
+<param name="Top">Use this parameter to generate INSERT statements only for the TOP n rows</param>
+<param name="IncludedColumns">List of columns to be included in the INSERT statement</param>
+<param name="ExcludedColumns">List of columns to be excluded from the INSERT statement</param>
+<param name="DisableConstraints">When 1, disables foreign key constraints and enables them after the INSERT statements</param>
+<param name="OmitComputed">When 1, computed columns will not be included in the INSERT statement</param>
+<param name="PrintResult">Flag to determine should resulted script be printed to output</param>
+<param name="Result">SQL statement</param>
+
 <example>
 	Example 1:	To generate INSERT statements for table 'fx.Countries':
 	exec fx.ScriptData 'fx', 'Countries'
@@ -89,23 +104,6 @@ go
 	Example 14: 	To exclude computed columns from the INSERT statement:
 	exec fx.ScriptData 'fx', 'Countries', @OmitComputed = 1
 </example>
-
-<param name="Schema">Scripted object's schema</param>
-<param name="Object">The table/view for which the INSERT statements will be generated using the existing data</param>
-<param name="TargetObject">Use this parameter to specify a different table name into which the data will be inserted</param>
-<param name="ScriptColumnsList">Use this parameter to include/ommit column list in the generated INSERT statement</param>
-<param name="Conditions">Use this parameter to filter the rows based on a filter condition (using where)</param>
-<param name="IncludeTimestamp">Specify 1 for this parameter, if you want to include the TIMESTAMP/ROWVERSION column's data in the INSERT statement</param>
-<param name="DebugMode">If @DebugMode is set to 1, the SQL statements constructed by this procedure will be printed for later examination</param>
-<param name="OmitImages">Use this parameter to generate INSERT statements by omitting the 'image' columns</param>
-<param name="OmitIdentity">Use this parameter to ommit the identity columns</param>
-<param name="Top">Use this parameter to generate INSERT statements only for the TOP n rows</param>
-<param name="IncludedColumns">List of columns to be included in the INSERT statement</param>
-<param name="ExcludedColumns">List of columns to be excluded from the INSERT statement</param>
-<param name="DisableConstraints">When 1, disables foreign key constraints and enables them after the INSERT statements</param>
-<param name="OmitComputed">When 1, computed columns will not be included in the INSERT statement</param>
-<param name="PrintResult">Flag to determine should resulted script be printed to output</param>
-<param name="Result">SQL statement</param>
 */
 
 create procedure fx.ScriptData
@@ -354,7 +352,7 @@ begin
 	/* In result of this complicated code there should be generated string like the following:
 	
 	select @Value = (
-		select char(9) + [Value] --+ nchar(10) as 'data()' 
+		select char(9) + [Value] + nchar(10) as 'data()' 
 		from (
 			select  [Value] = 
 				'insert into [fx].[Countries]'+'(
@@ -441,6 +439,5 @@ begin
 	
 	return 0 --Success. We are done!
 end
-
 go
 

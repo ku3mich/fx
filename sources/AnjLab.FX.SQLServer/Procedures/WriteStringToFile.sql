@@ -4,17 +4,16 @@ go
 
 /*
 <summary>
-	Writes given String to existing text File or creates new one.
+	Writes given sstring to existing text File or creates new one.
 </summary>
 
 <remarks>
- Using OLE automation procedures mast be switched on. Use the following code to
- turn it on:
-	sp_configure 'show advanced options', 1
-	reconfigure
-	sp_configure 'Ole Automation Procedures', 1
-	reconfigure
-
+	 Using OLE automation procedures mast be switched on. Use the following code to
+	 turn it on:
+		sp_configure 'show advanced options', 1
+		reconfigure
+		sp_configure 'Ole Automation Procedures', 1
+		reconfigure
 </remarks>
 
 <author>
@@ -39,55 +38,55 @@ create procedure fx.WriteStringToFile(
 )
 as
 begin
-declare  
-	@ObjectFileSystem int,
-    @ObjectTextStream int,
-	@ObjectErrorObject int,
-	@ErrorMessage Varchar(1000),
-	@Command varchar(1000),
-	@State int,
-	@FileAndPath varchar(80),
-	@Source varchar(255),
-	@Description Varchar(255),
-	@HelpFile Varchar(512),
-	@HelpID int
+	declare  
+		@ObjectFileSystem int,
+		@ObjectTextStream int,
+		@ObjectErrorObject int,
+		@ErrorMessage Varchar(1000),
+		@Command varchar(1000),
+		@State int,
+		@FileAndPath varchar(80),
+		@Source varchar(255),
+		@Description Varchar(255),
+		@HelpFile Varchar(512),
+		@HelpID int
 
 
-set nocount on
+	set nocount on
 
-if not exists(select * from sys.configurations where name = 'Ole Automation Procedures' and [Value] = 1)
-begin
-	print 'Ole Automation Procedures is not enabled'
-	return -1
-end
+	if not exists(select * from sys.configurations where name = 'Ole Automation Procedures' and [Value] = 1)
+	begin
+		print 'Ole Automation Procedures is not enabled'
+		return -1
+	end
 
-set @ErrorMessage = 'opening the File System Object'
-execute @State = sp_OACreate 'Scripting.FileSystemObject' , @ObjectFileSystem out
-set @FileAndPath = @path + '\' + @Filename
+	set @ErrorMessage = 'opening the File System Object'
+	execute @State = sp_OACreate 'Scripting.FileSystemObject' , @ObjectFileSystem out
+	set @FileAndPath = @path + '\' + @Filename
 
-if @State=0 
-begin
+	if @State = 0 
+	begin
 
-	select @ObjectErrorObject = @ObjectFileSystem , @ErrorMessage = 'creating File "' + @FileAndPath + '"'
-	execute @State = sp_OAMethod @ObjectFileSystem   , 'CreateTextFile'	, @ObjectTextStream out, @FileAndPath,2, True
-	select @ObjectErrorObject = @ObjectTextStream, @ErrorMessage = 'writing to the File "' + @FileAndPath + '"'
-	execute @State = sp_OAMethod @ObjectTextStream, 'Write', Null, @String
-	select @ObjectErrorObject = @ObjectTextStream, @ErrorMessage = 'closing the File "' + @FileAndPath + '"'
-	execute @State = sp_OAMethod @ObjectTextStream, 'Close'
+		select @ObjectErrorObject = @ObjectFileSystem , @ErrorMessage = 'creating File "' + @FileAndPath + '"'
+		execute @State = sp_OAMethod @ObjectFileSystem   , 'CreateTextFile'	, @ObjectTextStream out, @FileAndPath,2, True
+		select @ObjectErrorObject = @ObjectTextStream, @ErrorMessage = 'writing to the File "' + @FileAndPath + '"'
+		execute @State = sp_OAMethod @ObjectTextStream, 'Write', Null, @String
+		select @ObjectErrorObject = @ObjectTextStream, @ErrorMessage = 'closing the File "' + @FileAndPath + '"'
+		execute @State = sp_OAMethod @ObjectTextStream, 'Close'
 
-end else begin
+	end else begin
 
-	execute sp_OAGetErrorInfo @ObjectErrorObject, 
-		@source output, @Description output, @HelpFile output, @HelpID output
-	set @ErrorMessage = 'Error whilst ' + coalesce(@ErrorMessage, 'unknown action')
-			+ ', ' + coalesce(@Description,'')
-	raiserror (@ErrorMessage, 16, 1)
-	return -1
+		execute sp_OAGetErrorInfo @ObjectErrorObject, 
+			@source output, @Description output, @HelpFile output, @HelpID output
+		set @ErrorMessage = 'Error whilst ' + coalesce(@ErrorMessage, 'unknown action')
+				+ ', ' + coalesce(@Description,'')
+		raiserror (@ErrorMessage, 16, 1)
+		return -1
 
-end
+	end
 
-execute  sp_OADeStroy @ObjectTextStream
-execute sp_OADeStroy @ObjectTextStream
-return 0
+	execute sp_OADeStroy @ObjectTextStream
+	execute sp_OADeStroy @ObjectTextStream
+	return 0
 
 end

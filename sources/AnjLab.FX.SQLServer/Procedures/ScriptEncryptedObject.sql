@@ -96,7 +96,7 @@ begin
 		@ContentOfDecryptedObject     nvarchar(max),
 		@ContentOfFakeObject          nvarchar(max),
 		@ContentOfFakeEncryptedObject nvarchar(max),
-		@TextToPrint nvarchar(max),
+		@TextToPrint                  nvarchar(max),
 		@ObjectType                   nvarchar(128),
 		@ObjectID                     int
 
@@ -227,5 +227,5 @@ begin
 
 	return 0
 
-
 end
+go

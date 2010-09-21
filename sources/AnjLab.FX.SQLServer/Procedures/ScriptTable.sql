@@ -18,6 +18,7 @@ go
 	- properties ralated to physical structure (files, filegroups, partitions, size)
 	- including option for indexes
 	- fulltext indexes
+	- extended properties
 </remarks>
 
 <author>
@@ -26,12 +27,7 @@ go
 	The code can be used for free as long as this copyright notice is not removed.
 <author>
 
-<date>12\01\2009</date>
-		
 <example>
-select * from sys.check_constraints c
-inner join sys.tables t on t.object_id = c.parent_object_id
-
 	exec fx.ScriptTable 'fx', 'Countries'
 </example>
 
@@ -170,7 +166,7 @@ begin
 			inner join sys.schemas rs on rs.schema_id = rt.schema_id
 			inner join sys.columns rc on rc.object_id = fkc.referenced_object_id and rc.column_id = fkc.referenced_column_id
 			where fk.parent_object_id = @ID
-		) as a  for xml path('')), SPACE(0))
+		) as a  for xml path('')), space(0))
 	
 	-- check constraints
 	select @Result = @Result + isnull((

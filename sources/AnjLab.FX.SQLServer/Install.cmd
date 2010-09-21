@@ -3,7 +3,8 @@ cls
 color 1E
 
 echo зддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
-echo Ё AnjLab FX schema for SQL Server 2005 \ 2008                                 Ё
+echo Ё                                                                             Ё
+echo Ё AnjLab FX schema for SQL Server 2005 / 2008                                 Ё
 echo Ё Copyright (c) AnjLab 2008-2010, http://anjlab.com. All rights reserved.     Ё
 echo Ё The code can be used for free as long as this copyright notice isnt removed Ё
 echo цддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
@@ -36,7 +37,6 @@ for /f "tokens=*" %%a in ('dir /b procedures\*.sql') do osql -S %server% -U %use
 echo цддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
 echo Ё FX schema is installed successfuly                                          Ё
 echo юддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
-color 2E
 goto exit
 
 :error
@@ -48,6 +48,5 @@ echo Ё   - User name                                                            
 echo Ё   - User password                                                           Ё
 echo Ё   - Language (Rus or Eng)                                                   Ё
 echo юддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
-color CE
 
 :exit
