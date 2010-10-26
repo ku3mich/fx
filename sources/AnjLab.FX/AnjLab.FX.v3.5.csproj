@@ -94,6 +94,8 @@
     <Compile Include="Devices\DeviceExtensions.cs" />
     <Compile Include="Devices\IBytesFilter.cs" />
     <Compile Include="Devices\Md5.cs" />
+    <Compile Include="Enums\EnumExtensions.cs" />
+    <Compile Include="Enums\EnumValueAttribute.cs" />
     <Compile Include="Gsm\ATRequest.cs" />
     <Compile Include="Gsm\ATResponse.cs" />
     <Compile Include="Gsm\Exceptions.cs" />
