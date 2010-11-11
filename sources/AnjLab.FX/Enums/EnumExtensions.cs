@@ -11,9 +11,13 @@ namespace AnjLab.FX.Enums
 
         public static IList<KeyValuePair<object, string>> GetDescriptions(this Enum source)
         {
+            return GetEnumDescriptions(source.GetType());
+        }
+
+        public static IList<KeyValuePair<object, string>> GetEnumDescriptions(this Type enumType)
+        {
             var result = new List<KeyValuePair<object, string>>();
-            Type dataType = source.GetType();
-            foreach (var value in Enum.GetValues(dataType))
+            foreach (var value in Enum.GetValues(enumType))
             {
                 FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
 
