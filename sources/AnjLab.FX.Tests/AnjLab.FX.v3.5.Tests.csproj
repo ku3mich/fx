@@ -124,6 +124,7 @@
     <Compile Include="Sys\StrTests.cs" />
     <Compile Include="Tasks\Scheduling\EventQueueTests.cs" />
     <Compile Include="Tasks\Scheduling\TriggerTests.cs" />
+    <Compile Include="Udf\MedianTests.cs" />
     <Compile Include="Windows\Data\EnumHelperValueConverterTests.cs" />
     <Compile Include="Windows\Media\BrushesHelperTests.cs" />
     <Compile Include="Windows\Media\ColorsHelperTests.cs" />
@@ -154,6 +155,10 @@
     <ProjectReference Include="..\AnjLab.FX.MSBuild.Tasks\AnjLab.FX.3.5.MSBuild.Tasks.csproj">
       <Project>{5FC52267-CEB9-4E07-984E-B47DAF2DF0F3}</Project>
       <Name>AnjLab.FX.3.5.MSBuild.Tasks</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnjLab.FX.SQLServer.Udf\AnjLab.FX.SQLServer.Udf.csproj">
+      <Project>{48C6256C-B201-4ADD-A802-A9714380ABED}</Project>
+      <Name>AnjLab.FX.SQLServer.Udf</Name>
     </ProjectReference>
     <ProjectReference Include="..\AnjLab.FX\AnjLab.FX.v3.5.csproj">
       <Project>{91B5FE4B-C935-47C1-863E-33FD76D5D0C7}</Project>

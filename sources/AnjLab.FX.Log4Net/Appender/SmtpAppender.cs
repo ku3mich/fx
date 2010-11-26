@@ -92,6 +92,12 @@ namespace AnjLab.FX.Log4Net.Appender
         /// <param name="messageBody"></param>
         override protected void SendEmail(string messageBody)
         {
+            if (!string.IsNullOrEmpty(messageBody) 
+                && messageBody.Contains("Skip AnjLab.FX.Log4Net.Appender.SmtpAppender"))
+            {
+                return;
+            }
+
 			// .NET 2.0 has a new API for SMTP email System.Net.Mail
 			// This API supports credentials and multiple hosts correctly.
 			// The old API is deprecated.

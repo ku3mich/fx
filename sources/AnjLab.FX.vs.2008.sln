@@ -17,6 +17,8 @@ Project("{4F174C21-8C12-11D0-8340-0000F80270F8}") = "AnjLab.FX.SQLServer", "AnjL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnjLab.FX.Log4Net", "AnjLab.FX.Log4Net\AnjLab.FX.Log4Net.csproj", "{6E70B1C3-A27E-4543-80BD-A4CC2124D07B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnjLab.FX.SQLServer.Udf", "AnjLab.FX.SQLServer.Udf\AnjLab.FX.SQLServer.Udf.csproj", "{48C6256C-B201-4ADD-A802-A9714380ABED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,12 @@ Global
 		{6E70B1C3-A27E-4543-80BD-A4CC2124D07B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6E70B1C3-A27E-4543-80BD-A4CC2124D07B}.Release|x86.ActiveCfg = Release|x86
 		{6E70B1C3-A27E-4543-80BD-A4CC2124D07B}.Release|x86.Build.0 = Release|x86
+		{48C6256C-B201-4ADD-A802-A9714380ABED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48C6256C-B201-4ADD-A802-A9714380ABED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48C6256C-B201-4ADD-A802-A9714380ABED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{48C6256C-B201-4ADD-A802-A9714380ABED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48C6256C-B201-4ADD-A802-A9714380ABED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48C6256C-B201-4ADD-A802-A9714380ABED}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
