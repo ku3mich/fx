@@ -10,6 +10,14 @@ namespace AnjLab.FX.Enums
             Description = description;
         }
 
+        public EnumValueAttribute(string description, int position)
+            : this (description)
+        {
+            Position = position;
+        }
+
         public string Description { get; set; }
+
+        public int Position { get; set; }
     }
 }
