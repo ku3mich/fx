@@ -121,7 +121,7 @@ namespace AnjLab.FX.Tasks.Scheduling
                             }
                             
                             OnBeginEventOccurs(next.A.Tag);
-                            Thread.Sleep(100);
+                            Thread.Sleep(100);// EventQueueTests test would fail without this
                             Register(next.A);
                         }
                     }
