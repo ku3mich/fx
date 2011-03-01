@@ -125,6 +125,10 @@
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\NullToBooleanConverter.cs" />
     <Compile Include="Converters\StringToDoubleConverter.cs" />
+    <Compile Include="Dialogs\Interop\IOperationsProgressDialog.cs" />
+    <Compile Include="Dialogs\Interop\IProgressDialog.cs" />
+    <Compile Include="Dialogs\OperationsProgressDialog.cs" />
+    <Compile Include="Dialogs\ProgressDialog.cs" />
     <Compile Include="Dialogs\SelectFontDialog.xaml.cs">
       <DependentUpon>SelectFontDialog.xaml</DependentUpon>
     </Compile>
