@@ -1,6 +1,6 @@
 @echo off
 cls
-color 1E
+rem color 1E
 
 type ..\about.txt
 
