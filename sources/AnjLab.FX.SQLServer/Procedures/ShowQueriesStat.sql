@@ -3,9 +3,10 @@ drop procedure fx.ShowQueriesStat
 go
 
 /*
+<documentation>
 <summary>
-	Shows server-wide performing queries statistic.
-<summary>
+	Shows server-wide queries statistic.
+</summary>
 
 <remarks>
 	This stored procedure displays the top worst performing queries based on CPU, Execution Count,
@@ -14,11 +15,7 @@ go
     the database, and the sort order are identified by passing pararmeters.
 </remarks>
 
-<author>
-	Gregory A. Larsen
-	Copyright © 2008 Gregory A. Larsen. All rights reserved.
-</author>
-
+<parameters>
 <param name="Database">
 	used to constraint the output to a specific database. If when calling this procedure 
 	this parameter is set to a specific database name then only statements that are associated 
@@ -47,6 +44,7 @@ go
 		"APR"  represents Average Physical Reads
 		"TPR"  represents Total Physical Read
 </param>
+</parameters>
 
 <example>
 	Example 1. Top 6 statements in the master database base on Average CPU Usage
@@ -59,6 +57,12 @@ go
 	exec fx.ShowQueriesStat 
 </example>
 
+<author>
+	Gregory A. Larsen
+	Copyright © 2008 Gregory A. Larsen. All rights reserved.
+</author>
+
+</documentation>
 */
 
 create procedure fx.ShowQueriesStat(
