@@ -1,5 +1,7 @@
-if exists (select * from sysobjects where id = object_id(N'fx.ShowQueriesStat') and xtype in (N'P'))
-drop procedure fx.ShowQueriesStat
+if exists (select * from sysobjects where id = object_id(N'fx.showQueriesStat') and xtype in (N'P'))
+	drop procedure fx.showQueriesStat
+	
+set quoted_identifier on	
 go
 
 /*
@@ -47,25 +49,25 @@ go
 </parameters>
 
 <example>
-	Example 1. Top 6 statements in the master database base on Average CPU Usage
-    exec fx.ShowQueriesStat @Database = 'master',@Count = 6,@OrderBy = 'ACPU';
+	-- Example 1. Top 6 statements in the master database base on Average CPU Usage
+    exec fx.showQueriesStat @Database = 'master',@Count = 6,@OrderBy = 'ACPU';
   
-	Example 2. Top 100 statements order by Average IO
-	exec fx.ShowQueriesStat @Count = 100,@OrderBy = 'ALR';
+	-- Example 2. Top 100 statements order by Average IO
+	exec fx.showQueriesStat @Count = 100,@OrderBy = 'ALR';
    
-	Example 3. Show top 100 statements by Average CPU
-	exec fx.ShowQueriesStat 
+	-- Example 3. Show top 100 statements by Average CPU
+	exec fx.showQueriesStat 
 </example>
 
 <author>
 	Gregory A. Larsen
-	Copyright © 2008 Gregory A. Larsen. All rights reserved.
+	Copyright (c) 2008 Gregory A. Larsen. All rights reserved.
 </author>
 
 </documentation>
 */
 
-create procedure fx.ShowQueriesStat(
+create procedure fx.showQueriesStat(
 	@Database sysname = null,
 	@Count int = 9999,
 	@OrderBy nvarchar(4) = 'ACPU')
