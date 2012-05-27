@@ -11,7 +11,7 @@ cd /d %curpath%
 
 
 echo  * Building SQL file from sources
-copy "..\System\*.sql"+"..\Tables\Eng\*.sql"+"..\Functions\*.sql"+"..\Procedures\*.sql" fx.sql >> out.txt
+copy /A "..\System\Schema.sql"+"..\System\Types.sql"+"..\System\Diagram.sql"+"..\Tables\Eng\*.sql"+"..\Functions\*.sql"+"..\Procedures\*.sql" fx.sql >> out.txt
 type fx.sql > fx.sql
 
 echo  * Deplying schema
